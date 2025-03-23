@@ -9,5 +9,6 @@ import {PrismaService} from '@shared/services/prisma.service';
   imports: [LocationModule],
   controllers: [DeviceController],
   providers: [DeviceService, DeviceRepository, PrismaService],
+  exports: [DeviceRepository],
 })
 export class DeviceModule {}

@@ -92,4 +92,31 @@ export class DeviceRepository {
       },
     });
   }
+
+  async countDevices(): Promise<number> {
+    return await this.prismaService.device.count();
+  }
+
+  async countInactiveDevices(): Promise<number> {
+    return await this.prismaService.device.count({
+      where: {
+        status: 'Inactive',
+      },
+    });
+  }
+
+  async countDevicesByMonth(month: number): Promise<number> {
+    const year = new Date().getFullYear();
+    const startDate = new Date(year, month, 1);
+    const endDate = new Date(year, month + 1, 0);
+
+    return await this.prismaService.device.count({
+      where: {
+        createdAt: {
+          gte: startDate,
+          lte: endDate,
+        },
+      },
+    });
+  }
 }
