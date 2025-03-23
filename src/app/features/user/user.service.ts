@@ -65,7 +65,6 @@ export class UserService {
       user_id: user.id,
     };
     const tokens = await this.getTokens(payload);
-    await this.updateRtHash(tokens.refresh_token as string, user.id);
     return tokens;
   }
 

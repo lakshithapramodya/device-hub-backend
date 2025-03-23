@@ -44,6 +44,14 @@ export class LocationService {
     return `You have successfully removed the location.`;
   }
 
+  async countLocations(): Promise<number> {
+    return await this.locationRepository.count();
+  }
+
+  async countLocationsByMonth(month: number): Promise<number> {
+    return await this.locationRepository.countLocationsByMonth(month);
+  }
+
   private async findLocationById(locationId: string): Promise<Location> {
     const location = await this.locationRepository.getLocationById(locationId);
 
