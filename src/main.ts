@@ -33,9 +33,10 @@ const bootstrap = async () => {
   app.use(helmet());
 
   const config = new DocumentBuilder()
-    .setTitle('KSFT NestJS template')
-    .setDescription('Base template for NestJS applications')
+    .setTitle(' Location Device Management System')
+    .setDescription('Api collection for location device management system')
     .setVersion('1.0.0')
+    .addBearerAuth({in: 'header', type: 'http'})
     .build();
 
   SwaggerModule.setup('api', app, SwaggerModule.createDocument(app, config));
