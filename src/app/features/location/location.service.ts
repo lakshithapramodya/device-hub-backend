@@ -12,8 +12,18 @@ export class LocationService {
     return await this.locationRepository.createLocation(dto);
   }
 
-  async getLocations(page: number, limit: number): Promise<Location[]> {
+  async getLocations(
+    page: number,
+    limit: number,
+  ): Promise<{
+    data: Location[];
+    total: number;
+  }> {
     return await this.locationRepository.getLocationList(page, limit);
+  }
+
+  async getLocationsWithoutPagination(): Promise<Location[]> {
+    return await this.locationRepository.getAllLocationsWithoutPagination();
   }
 
   async getById(locationId: string): Promise<Location> {

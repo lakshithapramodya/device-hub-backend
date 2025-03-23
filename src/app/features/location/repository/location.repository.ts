@@ -26,10 +26,33 @@ export class LocationRepository {
   async getLocationList(page: number, limit: number) {
     const skip = (page - 1) * limit;
 
-    return await this.prismaService.location.findMany({
+    const total = await this.prismaService.location.count();
+
+    const locations = await this.prismaService.location.findMany({
       skip,
       take: limit,
+      include: {
+        Device: true,
+        _count: {
+          select: {
+            Device: true,
+          },
+        },
+      },
     });
+
+    return {
+      data: locations.map(location => ({
+        ...location,
+        devices: location._count.Device,
+        _count: undefined,
+      })),
+      total,
+    };
+  }
+
+  async getAllLocationsWithoutPagination() {
+    return await this.prismaService.location.findMany();
   }
 
   async getLocationById(id: string) {
