@@ -32,7 +32,7 @@ Then run the following two commands.
 `npx prisma generate`<br>
 `npx prisma db push`
 
-## Step 4: Run the project by following command
+## Step 5: Run the project by following command
 
 `npm run start`
 
