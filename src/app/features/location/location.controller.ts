@@ -24,8 +24,22 @@ export class LocationController {
   @ApiOperation({summary: 'Get all locations with pagination'})
   @ApiQuery({name: 'page', required: false, type: Number, description: 'Page number for pagination, default is 1'})
   @ApiQuery({name: 'limit', required: false, type: Number, description: 'Number of items per page, default is 10'})
-  async getLocations(@Query('page') page: number = 1, @Query('limit') limit: number = 10): Promise<Location[]> {
+  async getLocations(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+  ): Promise<{
+    data: Location[];
+    total: number;
+  }> {
     return await this.locationService.getLocations(+page, +limit);
+  }
+
+  @Get('/all')
+  @ApiBearerAuth()
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({summary: 'Get all locations without pagination'})
+  async getLocationsWithoutPagination(): Promise<Location[]> {
+    return await this.locationService.getLocationsWithoutPagination();
   }
 
   @Get(`:id`)
